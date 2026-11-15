@@ -1,7 +1,7 @@
 "use strict";
 
-const API_BASE = "http://127.0.0.1:2200";
-const API_URL = "http://127.0.0.1:2200/predict";
+const API_BASE = "https://mindscope-ai-mental-health-prediction.onrender.com";
+const API_URL = "https://mindscope-ai-mental-health-prediction.onrender.com/predict";
 
 /* Field definitions: names match the FastAPI StudentData model exactly. */
 const FIELDS = [
