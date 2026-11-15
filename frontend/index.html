@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MindScope AI – Student Mental Health Prediction</title>
+  <meta name="description" content="Estimate a student mental health score from digital habits and lifestyle data using a machine learning model." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#assessment">Skip to the form</a>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="MindScope AI home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#7cb7ff"/></linearGradient></defs>
+          <circle cx="16" cy="16" r="13" fill="none" stroke="url(#lg)" stroke-width="2.5"/>
+          <circle cx="16" cy="16" r="6" fill="none" stroke="url(#lg)" stroke-width="2.5"/>
+          <circle cx="16" cy="16" r="1.8" fill="#34d399"/>
+        </svg>
+        <span class="brand-text">
+          <strong>MindScope AI</strong>
+          <small>Student Mental Health Prediction</small>
+        </span>
+      </a>
+
+      <nav id="nav-links" class="nav-links" aria-label="Primary">
+        <a href="#assessment">Assessment</a>
+        <a href="#result">Result</a>
+        <a href="#how">How it works</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="status" class="status" data-state="checking" role="status" aria-live="polite">
+          <span class="dot" aria-hidden="true"></span>
+          <span id="status-text">Checking API…</span>
+        </div>
+        <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Understand Your Digital Habits. Discover Your Wellness Insights.</h1>
+        <p>
+          MindScope AI compares your social media use, sleep, study and activity patterns
+          against a trained machine learning model and returns a single estimated mental health score.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#assessment">Start the assessment</a>
+          <a class="btn btn-ghost" href="#how">See how it works</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div>
+        <div class="orbit-core"><span>12</span><small>inputs</small></div>
+      </div>
+    </section>
+
+    <section class="workspace" id="assessment">
+      <form id="predict-form" class="panel form-panel" novalidate aria-labelledby="form-title">
+        <div class="panel-head">
+          <div>
+            <h2 id="form-title">Student information</h2>
+            <p>Sample values are pre-filled. Replace them with your own.</p>
+          </div>
+          <button type="button" id="sample-btn" class="btn btn-text">Load sample</button>
+        </div>
+
+        <div id="form-alert" class="alert" role="alert" hidden></div>
+
+        <fieldset>
+          <legend>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+            Profile
+          </legend>
+          <div class="grid">
+            <div class="field">
+              <label for="age">Age</label>
+              <input id="age" name="age" type="number" inputmode="numeric" min="10" max="100" step="1" placeholder="e.g. 20" required aria-describedby="age-error" />
+              <p class="error" id="age-error"></p>
+            </div>
+            <div class="field">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender" required aria-describedby="gender-error">
+                <option value="">Select gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+              <p class="error" id="gender-error"></p>
+            </div>
+            <div class="field">
+              <label for="country">Country</label>
+              <input id="country" name="country" type="text" list="country-list" autocomplete="off" placeholder="Start typing a country" required aria-describedby="country-error" />
+              <datalist id="country-list">
+                <option value="Australia"></option><option value="Canada"></option><option value="France"></option>
+                <option value="Germany"></option><option value="India"></option><option value="Mexico"></option>
+                <option value="Turkey"></option><option value="UK"></option><option value="USA"></option>
+                <option value="Other"></option>
+              </datalist>
+              <p class="error" id="country-error"></p>
+            </div>
+            <div class="field">
+              <label for="academic_level">Academic level</label>
+              <select id="academic_level" name="academic_level" required aria-describedby="academic_level-error">
+                <option value="">Select level</option>
+                <option>High School</option>
+                <option>Undergraduate</option>
+                <option>Graduate</option>
+              </select>
+              <p class="error" id="academic_level-error"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+            Social media use
+          </legend>
+          <div class="grid">
+            <div class="field">
+              <label for="most_used_platform">Most used platform</label>
+              <select id="most_used_platform" name="most_used_platform" required aria-describedby="most_used_platform-error">
+                <option value="">Select platform</option>
+                <option>Facebook</option><option>Instagram</option><option>KakaoTalk</option><option>LINE</option>
+                <option>LinkedIn</option><option>Snapchat</option><option>TikTok</option><option>Twitter</option>
+                <option>VKontakte</option><option>WeChat</option><option>WhatsApp</option><option>YouTube</option>
+              </select>
+              <p class="error" id="most_used_platform-error"></p>
+            </div>
+            <div class="field">
+              <label for="purpose_of_use">Purpose of use</label>
+              <select id="purpose_of_use" name="purpose_of_use" required aria-describedby="purpose_of_use-error">
+                <option value="">Select purpose</option>
+                <option>Networking</option><option>Education</option><option>Entertainment</option><option>News</option>
+              </select>
+              <p class="error" id="purpose_of_use-error"></p>
+            </div>
+            <div class="field">
+              <label for="avg_daily_usage_hours">Daily usage <span class="unit">hours</span></label>
+              <input id="avg_daily_usage_hours" name="avg_daily_usage_hours" type="number" inputmode="decimal" min="0" max="24" step="0.1" placeholder="0 – 24" required aria-describedby="avg_daily_usage_hours-error" />
+              <p class="error" id="avg_daily_usage_hours-error"></p>
+            </div>
+            <div class="field">
+              <label for="daily_unlocks">Daily phone unlocks <span class="unit">times</span></label>
+              <input id="daily_unlocks" name="daily_unlocks" type="number" inputmode="numeric" min="0" step="1" placeholder="e.g. 60" required aria-describedby="daily_unlocks-error" />
+              <p class="error" id="daily_unlocks-error"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/></svg>
+            Lifestyle
+          </legend>
+          <div class="grid">
+            <div class="field">
+              <label for="study_hours">Study hours <span class="unit">per day</span></label>
+              <input id="study_hours" name="study_hours" type="number" inputmode="decimal" min="0" max="24" step="0.1" placeholder="0 – 24" required aria-describedby="study_hours-error" />
+              <p class="error" id="study_hours-error"></p>
+            </div>
+            <div class="field">
+              <label for="physical_activity_hours">Physical activity <span class="unit">hours per day</span></label>
+              <input id="physical_activity_hours" name="physical_activity_hours" type="number" inputmode="decimal" min="0" max="24" step="0.1" placeholder="0 – 24" required aria-describedby="physical_activity_hours-error" />
+              <p class="error" id="physical_activity_hours-error"></p>
+            </div>
+            <div class="field">
+              <label for="sleep_hours_per_night">Sleep <span class="unit">hours per night</span></label>
+              <input id="sleep_hours_per_night" name="sleep_hours_per_night" type="number" inputmode="decimal" min="0" max="24" step="0.1" placeholder="0 – 24" required aria-describedby="sleep_hours_per_night-error" />
+              <p class="error" id="sleep_hours_per_night-error"></p>
+            </div>
+            <div class="field">
+              <label for="stress_level">Stress level</label>
+              <select id="stress_level" name="stress_level" required aria-describedby="stress_level-error">
+                <option value="">Select stress level</option>
+                <option>Low</option><option>Medium</option><option>High</option><option>Very High</option>
+              </select>
+              <p class="error" id="stress_level-error"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="submit" id="submit-btn" class="btn btn-primary btn-lg">
+            <span class="spinner" aria-hidden="true"></span>
+            <span id="submit-label">Generate Prediction</span>
+          </button>
+          <button type="button" id="reset-btn" class="btn btn-ghost btn-lg">Clear form</button>
+        </div>
+      </form>
+
+      <aside id="result" class="panel result-panel" aria-labelledby="result-title" tabindex="-1">
+        <div id="result-card" class="result-card" data-state="idle">
+          <h2 id="result-title">Prediction result</h2>
+
+          <div class="ring-wrap">
+            <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#7cb7ff"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-track" cx="60" cy="60" r="52"/>
+              <circle class="ring-bar" cx="60" cy="60" r="52" pathLength="100"/>
+            </svg>
+            <div class="ring-center">
+              <span id="score-value" class="score">–</span>
+              <span class="score-label">predicted score</span>
+            </div>
+          </div>
+
+          <div class="state state-idle">
+            <h3>Waiting for your inputs</h3>
+            <p>Fill in the form and select Generate Prediction. Your score will appear here.</p>
+          </div>
+          <div class="state state-loading" aria-hidden="true">
+            <div class="skeleton w60"></div><div class="skeleton w90"></div><div class="skeleton w75"></div>
+          </div>
+          <div class="state state-success">
+            <h3>Your estimated mental health score</h3>
+            <p>This value is an estimate generated by a machine learning model from the answers you entered. It is not a diagnosis or medical advice.</p>
+          </div>
+          <div class="state state-error">
+            <h3>No prediction returned</h3>
+            <p id="result-error-text">The request failed. Check the message above the form.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="how" id="how">
+      <h2>How it works</h2>
+      <div class="how-grid">
+        <article><h3>You enter 12 details</h3><p>Profile, social media use and lifestyle answers are validated in your browser before anything is sent.</p></article>
+        <article><h3>Your browser calls the API</h3><p>The form data is posted as JSON to the FastAPI <code>/predict</code> endpoint running on your machine.</p></article>
+        <article><h3>The model returns a score</h3><p>The trained pipeline predicts a value, and the page shows exactly what the backend returned.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>MindScope AI is an educational ML project. Predictions are estimates, not medical advice.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
